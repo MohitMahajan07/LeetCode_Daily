@@ -1,0 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) 
+    {
+        vector <int> critical;
+        int index = 0; 
+        ListNode* cur = head;
+        ListNode* pre = NULL;
+        ListNode* next = head -> next;
+
+        while(next != NULL)
+        {
+            // Check for Local minima and Local Maxima
+            if((pre != NULL && cur -> val < next -> val && cur -> val < pre -> val) ||
+               (pre != NULL && cur -> val > next -> val && cur -> val > pre -> val))
+                critical.push_back(index);
+            
+            // Modifying Nodes
+            pre = cur;
+            cur = next;
+            next = next -> next;
+            index++;
+        }
+
+        // Base Case
+        if(critical.size() < 2) return {-1, -1};
+
+        // Calculating Distances
+        int maxD = critical.back() - critical.front();
+        int minD = INT_MAX;
+        for(int i = 0; i < critical.size() - 1; i++) minD = min(minD, critical[i+1] - critical[i]);
+        
+        return {minD, maxD};
+    }
+};
