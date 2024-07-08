@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) 
+    {
+        // Hashtable
+        unordered_map <int, int> mp;
+        mp[0] = 1;
+
+        int sum = 0, cnt = 0;
+        
+        // Count of subarrays divisible by k
+        for(int i = 0; i < nums.size(); i++)
+        {
+            sum += nums[i];
+            int mod = (sum  % k);
+            
+            // If remainder is negative
+            if(mod < 0) mod += k;
+
+            // Check if remainder exist in hashmap
+            cnt += mp[mod];
+            mp[mod]++;
+        }
+        return cnt;
+    }
+};
