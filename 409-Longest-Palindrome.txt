@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int longestPalindrome(string s) 
+    {
+        // Hashing
+        unordered_map <char, int> mp;
+        for(auto it : s) mp[it]++;
+
+        int count = 0;
+        bool oddFlag = false;
+
+        // Check for Palindrome
+        for(auto it : mp)
+        {
+            if(it.second % 2 == 0) count += it.second;
+            else
+            {
+                count += (it.second - 1);
+                oddFlag = true;
+            }
+        }
+
+        // If there is any off characer frequency
+        if(oddFlag) count++;
+
+        return count;
+    }
+};

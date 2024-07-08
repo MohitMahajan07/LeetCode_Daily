@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string replaceWords(vector<string>& dictionary, string sentence) 
+    {
+        // dictionarty set
+        set <string> s;
+        for(auto it : dictionary) s.insert(it);
+
+        // Checking for root word
+        string ans ="", temp = "";
+        sentence.push_back(' ');
+
+        for(int i = 0; i < sentence.length(); i++)
+        {
+            // if root word does not exist in dictionary
+            if(sentence[i] == ' ')
+            {
+                ans += temp;
+                ans += " ";
+                temp = "";
+            }
+
+            // Root word exist in dictionary
+            else 
+            {
+                temp += sentence[i];
+                if(s.find(temp) != s.end())
+                {
+                    ans += temp;
+                    ans += " ";
+                    temp = "";
+                    while(sentence[i] != ' ') i++;
+                }
+            }
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
