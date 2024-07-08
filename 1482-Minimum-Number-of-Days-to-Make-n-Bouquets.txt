@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+    // Check if the day is a possible bloom day
+    bool possible(vector<int> arr, int m, int k, int day)
+    {
+        int count = 0, nOfB = 0;
+        for(int i = 0; i < arr.size(); i++)
+        {
+            if(day >= arr[i]) count++;
+            else
+            {
+                nOfB += (count/k);
+                count = 0;
+            }
+        }
+        nOfB += (count/k);
+        return nOfB >= m;
+    }
+
+    int minDays(vector<int>& bloomDay, int m, int k) 
+    {
+        // Not have enough flowers
+        long long req = (long)m * (long)k;
+        if(req > bloomDay.size()) return -1;
+
+        // Finding maxinimun ans minimum bloom day
+        int maxi = INT_MIN, mini = INT_MAX;
+        for(int i = 0; i < bloomDay.size(); i++)
+        {
+            maxi = max(maxi, bloomDay[i]);
+            mini = min(mini, bloomDay[i]);
+        }
+
+        // Finding the mini bloomDay
+        int low = mini, high = maxi;
+        while(low <= high)
+        {
+            int mid = (low + high)/ 2;
+            if(possible(bloomDay, m, k, mid)) high = mid - 1;
+            else low = mid + 1;
+        }
+        return low;
+    }
+};

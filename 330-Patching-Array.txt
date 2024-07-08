@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) 
+    {
+        long sum_formed = 0, expected_sum = 1;
+        int i = 0, m = nums.size(), patch = 0;
+        while(sum_formed < n)
+        {
+            // if sum_Formed is greater than expected_sum so there is no need to check pprevious elements
+            if(sum_formed >= expected_sum) expected_sum = sum_formed + 1;
+            else
+            {
+                // Look in the array for the element to add in sum_formed
+                if(i < m && nums[i] <= expected_sum)
+                {
+                    sum_formed += nums[i];
+                    i++;
+                }
+
+                // Patch adding
+                else
+                {
+                    patch++;
+                    sum_formed += expected_sum;
+                }
+            }
+        }
+        return patch;
+    }
+};

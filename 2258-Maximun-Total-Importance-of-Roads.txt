@@ -1,0 +1,25 @@
+class Solution {
+public:
+    long long maximumImportance(int n, vector<vector<int>>& roads) 
+    {
+        // Calculate the degree
+        vector <long> degree(n, 0);
+        for(vector <int> edge : roads)
+        {
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+        }
+
+        // Sorting of degree
+        sort(degree.begin(), degree.end());
+
+        // Calculating the maximum importance
+        long max_imp = 0, lab = 1;
+        for(int i = 0; i < n; i++)
+        {
+            max_imp += (lab * degree[i]);
+            lab++;
+        }
+        return max_imp;
+    }
+};

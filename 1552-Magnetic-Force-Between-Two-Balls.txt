@@ -1,0 +1,40 @@
+class Solution {
+public:
+
+    // Check for possible answer
+    bool isPossible(vector <int> arr, int m, int mindist)
+    {
+        int ball = 1, last_pos = arr[0];
+        for(int i = 1; i < arr.size(); i++)
+        {
+            if(arr[i] - last_pos >= mindist) 
+            {
+                ball++;
+                last_pos = arr[i];
+            }
+            if(ball >= m) return true;
+        }
+        return false;
+    }
+
+    int maxDistance(vector<int>& position, int m) 
+    {
+        // Sorting the array
+        sort(position.begin(), position.end());
+        int n = position.size(), low = 1, high = position[n-1] - position[0];
+        int ans = 0;
+
+        // Searching the possible th answer
+        while(low <= high)
+        {
+            int mid = low + (high-low)/2;
+            if(isPossible(position, m, mid))
+            {
+                ans = mid;
+                low = mid+1;
+            }
+            else high = mid-1;
+        }
+        return ans;
+    }
+};

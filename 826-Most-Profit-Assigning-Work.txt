@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) 
+    {
+        // Finding the maximum difficulty
+        int max_diff = INT_MIN;
+        for(int i : difficulty) max_diff = max(max_diff, i);
+
+        // Making jobs array with difficulty and pofits
+        vector <int> jobs(max_diff + 1, 0);
+        for(int i = 0; i < difficulty.size(); i++)
+        {
+            int ind = difficulty[i];
+            jobs[ind] = max(jobs[ind], profit[i]);
+        }
+
+        // Modifying the jobs array in maximum profit array
+        for(int i = 1; i < jobs.size(); i++) jobs[i] = max(jobs[i], jobs[i-1]);
+
+        // Calculating the maximum profit
+        int max_pro = 0;
+        for(int i = 0; i < worker.size(); i++)
+        {
+            if(worker[i] > max_diff) max_pro += jobs[max_diff];
+            else max_pro += jobs[worker[i]];
+        }
+        return max_pro;
+    }
+};
