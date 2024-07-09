@@ -1,0 +1,26 @@
+class Solution {
+public:
+    double averageWaitingTime(vector<vector<int>>& customers) 
+    {
+        // Optimization
+        ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+        int idl_time = 1;
+        long waiting_time = 0;
+
+        for(vector<int> cust : customers)
+        {
+            // Chef is Free
+            if(idl_time <= cust[0]) idl_time = cust[0] + cust[1];
+
+            // Chef is bussy
+            else idl_time += cust[1];
+            
+            // Calculating the total waiting time
+            waiting_time += (idl_time - cust[0]);
+        }
+        
+        double avg = ((double) waiting_time / customers.size());
+        return avg;
+    }
+};
