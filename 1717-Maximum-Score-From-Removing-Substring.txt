@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string str = "";
+    
+    long long removeS(string p, int score)
+    {
+        vector <char> st;
+        char c1 = p[0];
+        char c2 = p[1];
+        long long total = 0;
+        for(char ch : str)
+        {
+            if(!st.empty() && st.back() == c1 && ch == c2)
+            {
+                total += score;
+                st.erase(st.end());
+            }
+            else st.push_back(ch);
+        }
+
+        string temp = "";
+        for(char ch : st) temp += ch;        
+        
+        str = temp;
+        return total;
+    }
+
+    int maximumGain(string s, int x, int y) 
+    {
+        str = s;
+        string pair1 = (x>y) ? "ab" : "ba";
+        string pair2 = (pair1 == "ab") ? "ba" : "ab";
+
+        long long score = 0;
+        score = removeS(pair1, max(x, y));
+        score += removeS(pair2, min(x, y));
+
+        return score;
+    }
+};
