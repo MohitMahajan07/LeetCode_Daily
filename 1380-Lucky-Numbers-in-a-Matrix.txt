@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> luckyNumbers (vector<vector<int>>& matrix) 
+    {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        unordered_set <int> minRows;
+
+        for(auto a : matrix)
+        {
+            int mini = *min_element(a.begin(), a.end());
+            minRows.insert(mini);
+        }
+
+        for(int i = 0; i < cols; i++)
+        {
+            int maxi = INT_MIN;
+            for(int j = 0; j < rows; j++) maxi = max(maxi, matrix[j][i]);
+            if(minRows.find(maxi) != minRows.end()) return {maxi};
+        }
+        return {};
+    }
+};
