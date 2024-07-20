@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) 
+    {
+        int rows = rowSum.size();
+        int cols = colSum.size();
+        vector <int> row (cols,0);
+        vector <vector <int>> mat(rows, row);
+
+        int r = 0, c = 0;
+        while(r < rows && c < cols)
+        {
+            int mini = min(rowSum[r], colSum[c]);
+            mat[r][c] = mini;
+            rowSum[r] -= mini;
+            colSum[c] -= mini;
+            if(rowSum[r] == 0) r++;
+            else c++;
+        }
+        return mat;
+    }
+};
