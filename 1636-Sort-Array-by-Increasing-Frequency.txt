@@ -1,0 +1,34 @@
+﻿class Solution 
+{
+public:
+    vector<int> frequencySort(vector<int>& nums) 
+    {
+        // Hashing
+        unordered_map <int, int> mp;
+        for(auto a : nums) mp[a]++;
+
+        // Making a frequency 2d array
+        vector<pair<int, int>> arr;
+        for(auto a : mp) arr.push_back({a.second, a.first});
+
+        // Custom Sorting
+        sort(arr.begin(), arr.end(), [](pair<int, int> &a, pair<int, int> &b)
+        {
+            if(a.first != b.first) return a.first < b.first;
+            else return a.second > b.second;
+        });
+
+        // Making the result vector
+        vector <int> ans;
+        for(auto a : arr)
+        {
+            int n = a.first;   // freuency of a particular element
+            while(n != 0)
+            {
+                ans.push_back(a.second);
+                n--;
+            }
+        }
+        return ans;
+    }
+};
