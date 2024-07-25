@@ -1,0 +1,55 @@
+﻿class Solution {
+public:
+    void merg(vector<int>& arr, int low, int mid, int high)
+    {
+        int left = low;
+        int right = mid+1;
+        vector <int> temp;
+
+        while(left <= mid && right <= high)
+        {
+            if(arr[left] < arr[right])
+            {
+                temp.push_back(arr[left]);
+                left++;
+            }
+            else
+            {
+                temp.push_back(arr[right]);
+                right++; 
+            }
+        }
+
+        while(left <= mid)
+        {
+            temp.push_back(arr[left]);
+            left++;
+        }
+
+        while(right <= high)
+        {
+            temp.push_back(arr[right]);
+            right++;
+        }
+
+        for(int a = low; a <= high; a++) arr[a] = temp[a-low];
+    }
+
+    void merg_sort(vector<int>& arr, int low, int high)
+    {
+        int mid = (low + high) / 2;
+
+        if(low == high) return;
+
+        merg_sort(arr, low, mid);
+        merg_sort(arr, mid+1, high);
+
+        merg(arr, low, mid, high);
+    }
+
+    vector<int> sortArray(vector<int>& nums) 
+    {
+        merg_sort(nums, 0, nums.size() - 1);
+        return nums;
+    }
+};
