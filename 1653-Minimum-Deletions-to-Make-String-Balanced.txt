@@ -1,0 +1,23 @@
+﻿class Solution 
+{
+public:
+    int minimumDeletions(string s) 
+    {
+        int res = 0, count = 0;
+
+        // Iterate in 's'
+        for (char c : s)
+        {
+            // if there is 'b'
+            if (c == 'b') count++;
+
+            // if there is 'a' and there is a 'b' for that 'a' in prefix
+            else if (count)
+            {
+                res++;
+                count--;
+            }
+        }
+        return res;
+    }
+};
