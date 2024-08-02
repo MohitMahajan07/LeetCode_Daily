@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) 
+    {
+        int n = nums.size();
+        // Find Total Number of Ones
+        int window = 0;
+        for(int i : nums) window += i;
+
+        // Find Number of Zeros in first Window
+        int zeros_cnt = 0;
+        for(int i = 0; i < window; i++)
+        {
+            if(nums[i] == 0) zeros_cnt++;
+        }
+
+        // Sliding Window
+        int minSwap = zeros_cnt;
+        int start = 0, end = window-1;
+        while(start < n)
+        {
+            // if removed element is 0
+            if(nums[start] == 0) zeros_cnt--;
+            start++;
+
+            // if included element is 0
+            end++;
+            if(nums[end%n] == 0) zeros_cnt++;
+
+            minSwap = min(minSwap, zeros_cnt);
+        }
+        return minSwap;
+    }
+};
