@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool canBeEqual(vector<int>& target, vector<int>& arr) 
+    {
+        unordered_map <int, int> freq_tar;
+        for(int a : target) freq_tar[a]++;
+        unordered_map <int, int> freq_arr;
+        for(int b : arr) freq_arr[b]++;
+
+        for(int i : arr)
+        {
+            if(freq_arr[i] != freq_tar[i]) return false;
+        }
+        return true;
+    }
+};
