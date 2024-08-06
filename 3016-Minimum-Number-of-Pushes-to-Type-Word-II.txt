@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumPushes(string word) 
+    {
+        unordered_map<char, int> mp;
+        for(char a : word) mp[a]++;
+
+        vector<pair<int, char>> freq;
+        for(auto it : mp) freq.push_back({it.second, it.first});
+
+        sort(freq.begin(), freq.end());
+
+        int push = 0, a = 1;
+        for(int i = freq.size()-1; i >= 0; i--)
+        {
+            if(a <= 8) push += (1*freq[i].first);
+            else if(a <= 16) push += (2*freq[i].first);
+            else if(a <= 24) push += (3*freq[i].first);
+            else push += (4*freq[i].first);
+            a++;
+        }
+        return push;
+    }
+};
