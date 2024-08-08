@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rstart, int cstart) 
+    {
+        int directions[4][2] = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+        int n = rows*cols;
+        vector <int> ro(2, 0);
+        vector<vector<int>> result(n, ro);
+        result[0][0] = rstart;
+        result[0][1] = cstart;
+        int count = 1, steps = 1, index = 0;
+        while(count < n)
+        {
+            for(int times = 0; times < 2; times++)
+            {
+                int dr = directions[index%4][0];
+                int dc = directions[index%4][1];
+                for(int i = 0; i < steps; i++)
+                {
+                    rstart += dr;
+                    cstart += dc;
+                    if(rstart >= 0 && rstart < rows && cstart >= 0 && cstart < cols)
+                    {
+                        result[count][0] = rstart;
+                        result[count][1] = cstart;
+                        count++;
+                    }
+                }
+                index++;
+            }
+            steps++;
+        }
+        return result;
+    }
+};
