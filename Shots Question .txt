@@ -1,3 +1,0 @@
-Shots Question 
-
-Leetcode 2236
