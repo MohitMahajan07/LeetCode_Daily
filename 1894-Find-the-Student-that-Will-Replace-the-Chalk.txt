@@ -1,0 +1,22 @@
+class Solution 
+{
+public:
+    int chalkReplacer(vector<int>& chalk, int k) 
+    {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
+
+        long long sum = 0, n = chalk.size();
+        for(int i = 0; i < n; i++) sum += chalk[i];
+
+        int rem = k % sum;
+        if(rem == 0) return 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(rem < chalk[i]) return i;
+            rem -= chalk[i];
+        }
+        return 0;
+    }
+};
