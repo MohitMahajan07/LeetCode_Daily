@@ -1,0 +1,34 @@
+class Solution 
+{
+public:
+    int getLucky(string s, int k) 
+    {
+        // Optimize
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
+
+        int n = s.size();
+        string dig = "";
+
+        // Convert all the charaters to integer
+        for(int i = 0; i < n; i++)
+        {
+            int x = s[i] - 'a' + 1;
+            dig += to_string(x);
+        }
+
+        // Operations
+        for(int i = 0; i < k; i++)
+        {   
+            int sum = 0;
+            for(char ch : dig)
+            {
+                int y = ch - '0';
+                sum += y;
+            }
+            dig = to_string(sum);
+        }
+        return stoi(dig);
+    }
+};
