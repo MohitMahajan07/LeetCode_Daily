@@ -1,0 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution 
+{
+private:
+
+    // Function to find the Greatest common divisor of two numbers
+    int gcd(int n, int m)
+    {
+        while(n > 0 && m > 0)
+        {
+            if (n > m)  n = n % m;
+            else m = m % n;
+        }
+        if(n == 0) return m;
+        else return n;
+    }
+public:
+    ListNode* insertGreatestCommonDivisors(ListNode* head)
+    {
+        ListNode* temp = head;
+
+        // Traversing the Linked List
+        while(temp != NULL && temp -> next != NULL)
+        {
+            // Getting two adjacent elements of LinkedList
+            int a = temp -> val;
+            int b = temp -> next -> val;
+
+            // Getting the Greatedt common divisor
+            int hcf = gcd(a, b);
+
+            // Inserting the new GCD node int the LinkedList
+            ListNode* node = new ListNode(hcf);
+            node -> next = temp -> next;
+            temp -> next = node;
+            temp = node -> next; 
+        }
+        return head;
+    }
+};
